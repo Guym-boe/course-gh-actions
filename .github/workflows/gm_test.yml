@@ -1,9 +1,9 @@
 name: gm_test
-on: 
+on:
   push:
   schedule:
-    - cron: '*/5 * * * *'
-  # workflow_dispatch: 
+    - cron: '*/15 * * * *'   # safer than every 5 minutes
+  workflow_dispatch:
 
 jobs:
   build:
