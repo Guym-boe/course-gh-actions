@@ -2,7 +2,7 @@ name: gm_test
 on: 
   push:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   build:
