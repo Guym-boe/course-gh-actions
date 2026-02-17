@@ -2,8 +2,8 @@ name: gm_test
 on: 
   push:
   schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch: 
+    - cron: '*/5 * * * *'
+  # workflow_dispatch: 
 
 jobs:
   build:
