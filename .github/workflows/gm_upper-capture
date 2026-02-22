@@ -1,0 +1,40 @@
+name: gm_upper-capture
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upper-capture.yml"
+      - "upper/**"
+  workflow_dispatch: # manual
+
+  # test change
+jobs:
+  capture:
+  	permissions:
+      contents: write
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: upper
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: 1.22
+          cache-dependency-path: ./upper/go.sum
+      - run: ls
+      - run: go build
+      - run: ls
+      - run: go test -v
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: ./upper/bin/upper*
+          body: "Binaries for the upper (go) command line tool!!!"
+          tag_name: ${{ github.ref_name }}
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./upper/upper*
+          name: "build-${{ matrix.os }}"
